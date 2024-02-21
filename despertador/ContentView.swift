@@ -11,10 +11,14 @@ let rectWidth: CGFloat = 8
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Text("amanhã (sexta) você acordará às 7:30")
-                .font(.body)
-                .padding(.vertical, 24)
+        VStack(spacing: 0) {
+            Group() {
+                Text("amanhã (sexta) você acordará às ")
+                +
+                Text("7:30")
+                    .fontWeight(.semibold)
+            }
+            .padding(.vertical, 24)
             
             VStack(spacing: 0) {
                 Day(.monday)
@@ -24,53 +28,11 @@ struct ContentView: View {
                 Day(.friday)
                 Day(.saturday)
                 Day(.sunday)
-                
-//                Text(String(currentID ?? 0))
-//                
-//                Rectangle()
-//                    .frame(width: rectWidth, height: 300)
-//                    .foregroundStyle(.black)
-//                    .overlay() {
-//                        Rectangle()
-//                            .frame(width: 1)
-//                            .foregroundStyle(.background)
-//                    }
-//                                
-//                ScrollView(.horizontal, showsIndicators: false) {
-//                    LazyHStack(spacing: 0) {
-//                        ForEach(rects, id: \.self) { rect in
-//                            Rectangle()
-//                                .frame(width: rectWidth)
-//                                .foregroundStyle(rect % 2 == 0 ? .black : .red)
-////                                .id(index)
-////                                .onAppear() {
-////                                    if rect == min + 10 {
-////                                        min -= 2
-////                                        rects.insert(min+1, at: 0)
-////                                        rects.insert(min, at: 0)
-////                                    } else if rect == max - 10 {
-////                                        max += 2
-////                                        rects.append(max-1)
-////                                        rects.append(max)
-////                                    }
-////                                }
-//                        }
-//                    }
-//                    .scrollTargetLayout()
-//                }
-//                .scrollPosition(id: $currentID, anchor: .center)
-//                .scrollTargetBehavior(.centered)
-//                .defaultScrollAnchor(.center)
-//                .background() {
-//                    Rectangle()
-//                        .foregroundStyle(.blue)
-//                }
-//                .frame(height: 90)
-//                .animation(.linear(duration: 1))
             }
             
             Spacer()
         }
+        .customFont()
         .padding(.horizontal, 16)
     }
 }
@@ -104,22 +66,21 @@ struct Day: View {
     
     var body: some View {
         UnevenRoundedRectangle(cornerRadii: cornerRadii, style: .continuous)
-            .stroke(.black, lineWidth: 0.7)
-            .foregroundStyle(.background)
+            .stroke(.foreground , lineWidth: 0.7)
             .frame(height: 65)
             .overlay {
                 HStack(spacing: 0) {
                     Text(dayLabel)
+                        .customFont(smallCaps: true)
                         .frame(width: 36 + (2 * 8))
-                        .font(.title3.lowercaseSmallCaps())
                     
                     CustomDivider()
                     
                     Text(String(currentID ?? 0))
-                        .frame(width: 120)
-                        .font(.largeTitle.bold())
+                        .customFont(.Optima, size: .title1, weight: .bold)
                         .contentTransition(.numericText())
-                                        
+                        .frame(width: 120)
+                    
                     CustomDivider()
                     
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -129,7 +90,6 @@ struct Day: View {
                                     .frame(width: rectWidth, height: 30)
                                     .foregroundStyle(.clear)
                                     .overlay() {
-                                        
                                         RoundedRectangle(cornerRadius: 2)
                                             .foregroundStyle(.foreground)
                                             .frame(width: 2, height: index % 12 == 0 ? 30 : index % 6 == 0 ? 22 : 16)
@@ -141,14 +101,46 @@ struct Day: View {
                     .scrollPosition(id: $currentID, anchor: .center)
                     .scrollTargetBehavior(.centered)
                     .onAppear() {
-                        withAnimation(.spring) {
+                        withAnimation() {
                             currentID = 240
                         }
                     }
-//                    .defaultScrollAnchor(.center)
-//                    .frame(height: 30)
                 }
             }
+    }
+}
+
+enum Typeface {
+    case Optima, SourceSansPro
+}
+
+enum FontSize {
+    case body, title3, title2, title1
+}
+
+extension View {
+    func customFont(_ typeface: Typeface = .SourceSansPro, size fontSize: FontSize = .body, weight fontWeight: Font.Weight = .regular, smallCaps: Bool = false) -> some View {
+        
+        var fontSizeValue: CGFloat
+        
+        switch fontSize {
+        case .body:
+            fontSizeValue = 17
+        case .title3:
+            fontSizeValue = 20
+        case .title2:
+            fontSizeValue = 32
+        case .title1:
+            fontSizeValue = 40
+        }
+        
+        if smallCaps {
+            return font(.custom(typeface == .Optima ? "Optima" : "SourceSansPro-Regular", size: fontSizeValue).lowercaseSmallCaps())
+                .fontWeight(fontWeight)
+        }
+        
+        return font(.custom(typeface == .Optima ? "Optima" : "SourceSansPro-Regular", size: fontSizeValue))
+            .fontWeight(fontWeight)
     }
 }
 
@@ -172,7 +164,7 @@ struct CustomDivider: View {
     var body: some View {
         Rectangle()
             .frame(width: 0.7)
-            .foregroundStyle(.black)
+            .foregroundStyle(.foreground)
     }
 }
 
