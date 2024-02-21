@@ -76,7 +76,7 @@ struct Day: View {
                     
                     CustomDivider()
                     
-                    Text(String(currentID ?? 0))
+                    Text("\(((currentID ?? 0)/12) % 24):\(String(format: "%02d", ((currentID ?? 0)*5) % 60))")
                         .customFont(.Optima, size: .title1, weight: .bold)
                         .contentTransition(.numericText())
                         .frame(width: 120)
@@ -92,7 +92,7 @@ struct Day: View {
                                     .overlay() {
                                         RoundedRectangle(cornerRadius: 2)
                                             .foregroundStyle(.foreground)
-                                            .frame(width: 2, height: index % 12 == 0 ? 30 : index % 6 == 0 ? 22 : 16)
+                                            .frame(width: 2, height: index % 12 == 0 ? 28 : 20)
                                     }
                             }
                         }
@@ -102,9 +102,26 @@ struct Day: View {
                     .scrollTargetBehavior(.centered)
                     .onAppear() {
                         withAnimation() {
-                            currentID = 240
+                            currentID = 372
                         }
                     }
+                    .overlay() {
+                        HStack(spacing: 0) {
+                            Rectangle()
+                                .fill(LinearGradient(gradient: Gradient(colors: [.white, .clear]), startPoint: .leading, endPoint: .trailing)
+                                )
+                            
+                            Spacer(minLength: 50)
+                                
+                            Rectangle()
+                                .fill(LinearGradient(gradient: Gradient(colors: [.white, .clear]), startPoint: .trailing, endPoint: .leading)
+                                )
+                        }
+                        .allowsHitTesting(false)
+                        .simultaneousGesture(TapGesture())
+                        .frame(height: 30)
+                    }
+                    .padding(.trailing, 0.35)
                 }
             }
     }
