@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-let rectWidth: CGFloat = 8
+let rectWidth: CGFloat = 9
 
 struct ContentView: View {
     var body: some View {
@@ -98,6 +98,12 @@ struct Day: View {
                         }
                         .scrollTargetLayout()
                     }
+                    .sensoryFeedback(trigger: $currentID.wrappedValue ?? 0) {oldValue, newValue in
+                        if newValue % 12 == 0 {
+                            return .impact(flexibility: .rigid, intensity: 1)
+                        }
+                        return .impact(flexibility: .solid, intensity: 0.4)
+                    }
                     .scrollPosition(id: $currentID, anchor: .center)
                     .scrollTargetBehavior(.centered)
                     .onAppear() {
@@ -111,7 +117,7 @@ struct Day: View {
                                 .fill(LinearGradient(gradient: Gradient(colors: [.white, .clear]), startPoint: .leading, endPoint: .trailing)
                                 )
                             
-                            Spacer(minLength: 50)
+                            Spacer(minLength: 30)
                                 
                             Rectangle()
                                 .fill(LinearGradient(gradient: Gradient(colors: [.white, .clear]), startPoint: .trailing, endPoint: .leading)
