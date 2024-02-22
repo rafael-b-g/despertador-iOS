@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-let rectWidth: CGFloat = 8
+let rectWidth: CGFloat = 9
 
 struct ContentView: View {
     var body: some View {
@@ -117,7 +117,7 @@ struct Day: View {
                                 .fill(LinearGradient(gradient: Gradient(colors: [.white, .clear]), startPoint: .leading, endPoint: .trailing)
                                 )
                             
-                            Spacer(minLength: 50)
+                            Spacer(minLength: 30)
                                 
                             Rectangle()
                                 .fill(LinearGradient(gradient: Gradient(colors: [.white, .clear]), startPoint: .trailing, endPoint: .leading)
