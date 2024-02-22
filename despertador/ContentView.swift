@@ -98,6 +98,12 @@ struct Day: View {
                         }
                         .scrollTargetLayout()
                     }
+                    .sensoryFeedback(trigger: $currentID.wrappedValue ?? 0) {oldValue, newValue in
+                        if newValue % 12 == 0 {
+                            return .impact(flexibility: .rigid, intensity: 1)
+                        }
+                        return .impact(flexibility: .solid, intensity: 0.4)
+                    }
                     .scrollPosition(id: $currentID, anchor: .center)
                     .scrollTargetBehavior(.centered)
                     .onAppear() {
