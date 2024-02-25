@@ -11,6 +11,14 @@ let rectWidth: CGFloat = 9
 
 struct ContentView: View {
     var body: some View {
+        DefaultView()
+            .background(.appBackground)
+            .customFont()
+    }
+}
+
+struct DefaultView: View {
+    var body: some View {
         VStack(spacing: 0) {
             Group() {
                 Text("amanhã (sexta) você acordará às ")
@@ -18,6 +26,7 @@ struct ContentView: View {
                 Text("7:30")
                     .fontWeight(.semibold)
             }
+            .foregroundStyle(.appSecondary)
             .padding(.vertical, 24)
             
             VStack(spacing: 0) {
@@ -32,7 +41,6 @@ struct ContentView: View {
             
             Spacer()
         }
-        .customFont()
         .padding(.horizontal, 16)
     }
 }
@@ -66,18 +74,21 @@ struct Day: View {
     
     var body: some View {
         UnevenRoundedRectangle(cornerRadii: cornerRadii, style: .continuous)
-            .stroke(.foreground , lineWidth: 0.7)
+            .stroke(.appBorder , lineWidth: 0.7)
+            .fill(.appElevatedBackground)
             .frame(height: 65)
             .overlay {
                 HStack(spacing: 0) {
                     Text(dayLabel)
                         .customFont(smallCaps: true)
+                        .foregroundStyle(.appTertiary)
                         .frame(width: 36 + (2 * 8))
                     
                     CustomDivider()
                     
                     Text("\(((currentID ?? 0)/12) % 24):\(String(format: "%02d", ((currentID ?? 0)*5) % 60))")
                         .customFont(.Optima, size: .title1, weight: .bold)
+                        .foregroundStyle(.appPrimary)
                         .contentTransition(.numericText())
                         .frame(width: 120)
                     
@@ -87,11 +98,11 @@ struct Day: View {
                         LazyHStack(spacing: 0) {
                             ForEach(0...864, id: \.self) { index in
                                 Rectangle()
-                                    .frame(width: rectWidth, height: 30)
                                     .foregroundStyle(.clear)
+                                    .frame(width: rectWidth, height: 30)
                                     .overlay() {
                                         RoundedRectangle(cornerRadius: 2)
-                                            .foregroundStyle(.foreground)
+                                            .foregroundStyle(.appSecondary)
                                             .frame(width: 2, height: index % 12 == 0 ? 28 : 20)
                                     }
                             }
@@ -114,13 +125,13 @@ struct Day: View {
                     .overlay() {
                         HStack(spacing: 0) {
                             Rectangle()
-                                .fill(LinearGradient(gradient: Gradient(colors: [.white, .clear]), startPoint: .leading, endPoint: .trailing)
+                                .fill(LinearGradient(gradient: Gradient(colors: [.appElevatedBackground, .clear]), startPoint: .leading, endPoint: .trailing)
                                 )
                             
                             Spacer(minLength: 30)
                                 
                             Rectangle()
-                                .fill(LinearGradient(gradient: Gradient(colors: [.white, .clear]), startPoint: .trailing, endPoint: .leading)
+                                .fill(LinearGradient(gradient: Gradient(colors: [.appElevatedBackground, .clear]), startPoint: .trailing, endPoint: .leading)
                                 )
                         }
                         .allowsHitTesting(false)
@@ -187,7 +198,7 @@ struct CustomDivider: View {
     var body: some View {
         Rectangle()
             .frame(width: 0.7)
-            .foregroundStyle(.foreground)
+            .foregroundStyle(.appBorder)
     }
 }
 
