@@ -40,6 +40,9 @@ struct DefaultView: View {
             }
             
             Spacer()
+            
+            LightSlider()
+                .padding(.bottom, 32)
         }
         .padding(.horizontal, 16)
     }
@@ -141,6 +144,55 @@ struct Day: View {
                     .padding(.trailing, 0.35)
                 }
             }
+    }
+}
+
+struct LightSlider: View {
+    @State private var sliderFillWidth: CGFloat = 0
+    @State private var lastSliderFillWidth: CGFloat = CGFloat.zero
+    
+    var body: some View {
+        GeometryReader { geo in
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .strokeBorder(.appBorder, lineWidth: 0.7)
+                .background() {
+                    HStack(spacing: 0) {
+                        Rectangle()
+                            .foregroundStyle(.appElevatedBackground)
+                            .overlay(alignment: .trailing) {
+                                HStack(spacing: 0) {
+                                    Rectangle()
+                                        .frame(width: 1, height: 30)
+                                        .foregroundStyle(.appBorder)
+                                    .padding(.trailing, 8)
+                                    
+                                    CustomDivider()
+                                }
+                            }
+                            .frame(width: sliderFillWidth)
+                        
+                        Rectangle()
+                            .foregroundStyle(.appBackground)
+                    }
+                    .clipShape(.rect(cornerRadius: 16, style: .continuous), style: .init(antialiased: true))
+                }
+                .gesture(
+                    DragGesture()
+                        .onChanged() { gesture in
+                            sliderFillWidth = gesture.location.x - gesture.startLocation.x + lastSliderFillWidth
+                            
+                            if sliderFillWidth < 0 {
+                                sliderFillWidth = 0
+                            } else if sliderFillWidth > geo.size.width {
+                                sliderFillWidth = geo.size.width
+                            }
+                        }
+                        .onEnded() { _ in
+                            lastSliderFillWidth = sliderFillWidth
+                        }
+                )
+        }
+        .frame(height: 65)
     }
 }
 
