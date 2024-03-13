@@ -75,26 +75,45 @@ struct Day: View {
     }
     
     @State private var currentID: Int?
+    @State private var isOn: Bool = true
     
     var body: some View {
         UnevenRoundedRectangle(cornerRadii: cornerRadii, style: .continuous)
             .stroke(.appBorder , lineWidth: 0.7)
-            .fill(.appElevatedBackground)
+            .fill(isOn ? .appElevatedBackground : .appBackground)
             .frame(height: 65)
             .overlay {
                 HStack(spacing: 0) {
-                    Text(dayLabel)
-                        .customFont(smallCaps: true)
-                        .foregroundStyle(.appTertiary)
-                        .frame(width: 36 + (2 * 8))
-                    
-                    CustomDivider()
-                    
-                    Text("\(((currentID ?? 0)/12) % 24):\(String(format: "%02d", ((currentID ?? 0)*5) % 60))")
-                        .customFont(.Optima, size: .title1, weight: .bold)
-                        .foregroundStyle(.appPrimary)
-                        .contentTransition(.numericText())
-                        .frame(width: 120)
+                    Group {
+                        Text(dayLabel)
+                            .customFont(smallCaps: true)
+                            .foregroundStyle(.appTertiary)
+                            .frame(width: 36 + (2 * 8))
+                        
+                        CustomDivider()
+                        
+                        Text("\(((currentID ?? 0)/12) % 24):\(String(format: "%02d", ((currentID ?? 0)*5) % 60))")
+                            .customFont(.Optima, size: .title1, weight: .bold)
+                            .foregroundStyle(.appPrimary)
+                            .contentTransition(.numericText())
+                            .frame(width: 120)
+                            .opacity(isOn ? 1 : 0)
+                            .blur(radius: isOn ? 0 : 5)
+                            .background() {
+                                Text("desativado")
+                                    .customFont(.SourceSansPro, size: .body, weight: .regular, smallCaps: true)
+                                    .foregroundStyle(.appSecondary)
+                                    .opacity(isOn ? 0 : 1)
+                                    .blur(radius: isOn ? 5 : 0)
+                            }
+                    }
+                    .frame(height: 65)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        withAnimation(.easeOut(duration: 0.25)) {
+                            isOn.toggle()
+                        }
+                    }
                     
                     CustomDivider()
                     
@@ -106,14 +125,19 @@ struct Day: View {
                                     .frame(width: rectWidth, height: 30)
                                     .overlay() {
                                         RoundedRectangle(cornerRadius: 2)
-                                            .foregroundStyle(.appSecondary)
-                                            .frame(width: 2, height: index % 12 == 0 ? 28 : 20)
+                                            .foregroundStyle(isOn ? .appSecondary : .appTertiary)
+                                            .frame(width: 2, height: isOn ? index % 12 == 0 ? 28 : 20 : 14)
                                     }
                             }
                         }
                         .scrollTargetLayout()
                     }
                     .sensoryFeedback(trigger: $currentID.wrappedValue ?? 0) {oldValue, newValue in
+                        if !isOn {
+                            withAnimation(.easeOut(duration: 0.25)) {
+                                isOn = true
+                            }
+                        }
                         if newValue % 12 == 0 {
                             return .impact(flexibility: .rigid, intensity: 1)
                         }
@@ -129,17 +153,16 @@ struct Day: View {
                     .overlay() {
                         HStack(spacing: 0) {
                             Rectangle()
-                                .fill(LinearGradient(gradient: Gradient(colors: [.appElevatedBackground, .clear]), startPoint: .leading, endPoint: .trailing)
+                                .fill(LinearGradient(gradient: Gradient(colors: [isOn ? .appElevatedBackground : .appBackground, .clear]), startPoint: .leading, endPoint: .trailing)
                                 )
                             
                             Spacer(minLength: 30)
                                 
                             Rectangle()
-                                .fill(LinearGradient(gradient: Gradient(colors: [.appElevatedBackground, .clear]), startPoint: .trailing, endPoint: .leading)
+                                .fill(LinearGradient(gradient: Gradient(colors: [isOn ? .appElevatedBackground : .appBackground, .clear]), startPoint: .trailing, endPoint: .leading)
                                 )
                         }
                         .allowsHitTesting(false)
-                        .simultaneousGesture(TapGesture())
                         .frame(height: 30)
                     }
                     .padding(.trailing, 0.35)
