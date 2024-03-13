@@ -311,15 +311,19 @@ struct LightSlider: View {
                 .gesture(
                     DragGesture()
                         .onChanged() { gesture in
+                            if abs(gesture.location.x - gesture.startLocation.x + lastSliderFillWidth - lastSliderFillWidth) > 5 && sliderFillWidth == lastSliderFillWidth{
+                                lastSliderFillWidth -= gesture.location.x - gesture.startLocation.x + lastSliderFillWidth - lastSliderFillWidth
+                            }
+                            
                             sliderFillWidth = gesture.location.x - gesture.startLocation.x + lastSliderFillWidth
 
-                            if sliderFillWidth < 0 {
+                            if sliderFillWidth <= 0 {
                                 sliderDragVelocity = Float(gesture.velocity.width)
                                 
                                 sliderFillWidth = 0
                                 
                                 stopHaptics()
-                            } else if sliderFillWidth > geo.size.width {
+                            } else if sliderFillWidth >= geo.size.width {
                                 sliderDragVelocity = Float(gesture.velocity.width)
 
                                 sliderFillWidth = geo.size.width
