@@ -79,8 +79,8 @@ struct Day: View {
     
     var body: some View {
         UnevenRoundedRectangle(cornerRadii: cornerRadii, style: .continuous)
-            .stroke(.appBorder , lineWidth: 0.7)
             .fill(isOn ? .appElevatedBackground : .appBackground)
+            .stroke(.appBorder , lineWidth: 0.7)
             .frame(height: 65)
             .overlay {
                 HStack(spacing: 0) {
