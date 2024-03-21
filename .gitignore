@@ -1,3 +1,4 @@
 
 /despertador.xcodeproj/project.xcworkspace/xcuserdata
 *.xcuserstate
+.DS_Store

@@ -1,5 +1,5 @@
 //
-//  CustomDivider.swift
+//  CustomDividerView.swift
 //  despertador
 //
 //  Created by Rafael Guimarães on 14/03/24.

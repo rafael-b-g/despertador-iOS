@@ -15,10 +15,12 @@
 		FF4B3DD42B853D6000A957DC /* SourceSansPro-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = FF4B3DD12B853D6000A957DC /* SourceSansPro-Regular.otf */; };
 		FF4B3DD52B853D6000A957DC /* SourceSansPro-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FF4B3DD22B853D6000A957DC /* SourceSansPro-Semibold.otf */; };
 		FF4B3DD82B8540D000A957DC /* Optima.ttc in Resources */ = {isa = PBXBuildFile; fileRef = FF4B3DD72B8540D000A957DC /* Optima.ttc */; };
+		FF602F0D2BAC71AF00EABBF5 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF602F0C2BAC71AF00EABBF5 /* BluetoothManager.swift */; };
 		FFC7023F2BA3985D00F30194 /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC7023E2BA3985D00F30194 /* DayView.swift */; };
 		FFC702412BA39E0D00F30194 /* CustomDividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC702402BA39E0D00F30194 /* CustomDividerView.swift */; };
 		FFC702432BA39ED800F30194 /* LightSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC702422BA39ED800F30194 /* LightSliderView.swift */; };
 		FFC702452BA39F3900F30194 /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC702442BA39F3900F30194 /* CustomFont.swift */; };
+		FFEA8F6E2BA8736300487BF5 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEA8F6D2BA8736300487BF5 /* Data.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,10 +34,12 @@
 		FF4B3DD22B853D6000A957DC /* SourceSansPro-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Semibold.otf"; sourceTree = "<group>"; };
 		FF4B3DD62B853E9300A957DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		FF4B3DD72B8540D000A957DC /* Optima.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Optima.ttc; sourceTree = "<group>"; };
+		FF602F0C2BAC71AF00EABBF5 /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 		FFC7023E2BA3985D00F30194 /* DayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayView.swift; sourceTree = "<group>"; };
 		FFC702402BA39E0D00F30194 /* CustomDividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDividerView.swift; sourceTree = "<group>"; };
 		FFC702422BA39ED800F30194 /* LightSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightSliderView.swift; sourceTree = "<group>"; };
 		FFC702442BA39F3900F30194 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
+		FFEA8F6D2BA8736300487BF5 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +79,8 @@
 				FF4B3DD22B853D6000A957DC /* SourceSansPro-Semibold.otf */,
 				FF26CDEB2B7FF76600F30382 /* despertadorApp.swift */,
 				FF26CDED2B7FF76600F30382 /* ContentView.swift */,
+				FFEA8F6D2BA8736300487BF5 /* Data.swift */,
+				FF602F0C2BAC71AF00EABBF5 /* BluetoothManager.swift */,
 				FFC702442BA39F3900F30194 /* CustomFont.swift */,
 				FFC702422BA39ED800F30194 /* LightSliderView.swift */,
 				FFC702402BA39E0D00F30194 /* CustomDividerView.swift */,
@@ -167,7 +173,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFEA8F6E2BA8736300487BF5 /* Data.swift in Sources */,
 				FFC702412BA39E0D00F30194 /* CustomDividerView.swift in Sources */,
+				FF602F0D2BAC71AF00EABBF5 /* BluetoothManager.swift in Sources */,
 				FF26CDEE2B7FF76600F30382 /* ContentView.swift in Sources */,
 				FFC7023F2BA3985D00F30194 /* DayView.swift in Sources */,
 				FFC702452BA39F3900F30194 /* CustomFont.swift in Sources */,
@@ -310,6 +318,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = despertador/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth é necessário para se comunicar com seu despertador.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -345,6 +354,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = despertador/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth é necessário para se comunicar com seu despertador.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

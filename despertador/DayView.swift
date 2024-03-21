@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  DayView.swift
 //  despertador
 //
 //  Created by Rafael Guimarães on 14/03/24.
@@ -132,7 +132,7 @@ struct Day: View {
 }
 
 enum WeekDay {
-    case monday, tuesday, wednesday, thursday, friday, saturday, sunday
+    case sunday, monday, tuesday, wednesday, thursday, friday, saturday
 }
 
 extension ScrollTargetBehavior where Self == CenteredScrollTargetBehavior {

@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct despertadorApp: App {
+    @State private var connectedDevice = ConnectedDevice()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(connectedDevice)
         }
     }
 }
